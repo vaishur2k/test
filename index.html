@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Eternal Vows | Animated Marriage Invitation</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #fdf8f0 0%, #fae9dd 100%);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* decorative animated floral particles background */
+        body::before {
+            content: "🌸";
+            font-size: 60px;
+            position: absolute;
+            top: 5%;
+            left: 2%;
+            opacity: 0.15;
+            animation: floatPetals 14s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "🌼";
+            font-size: 70px;
+            position: absolute;
+            bottom: 8%;
+            right: 3%;
+            opacity: 0.15;
+            animation: floatPetals 18s infinite reverse;
+            pointer-events: none;
+        }
+
+        @keyframes floatPetals {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
+            50% { transform: translateY(-25px) rotate(12deg); opacity: 0.2; }
+            100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
+        }
+
+        /* main wrapper */
+        .invitation-wrapper {
+            width: 100%;
+            max-width: 820px;
+            margin: 0 auto;
+            perspective: 1200px;
+        }
+
+        /* INTRO CARD (initial state) */
+        .intro-card {
+            background: rgba(255, 250, 240, 0.96);
+            backdrop-filter: blur(3px);
+            border-radius: 68px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 40px 60px -20px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 215, 175, 0.5);
+            transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid #ffdfb8;
+        }
+
+        .intro-card.fade-out {
+            opacity: 0;
+            transform: scale(0.94) translateY(20px);
+            pointer-events: none;
+        }
+
+        .floral-icon {
+            font-size: 3.2rem;
+            color: #d4af7a;
+            margin-bottom: 0.5rem;
+            letter-spacing: 8px;
+        }
+
+        .intro-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: #7e4f2e;
+            margin: 0.5rem 0 0.25rem;
+            letter-spacing: 1px;
+        }
+
+        .intro-message {
+            color: #a57354;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-top: 0.75rem;
+            letter-spacing: 1px;
+            border-top: 1px dashed #e7cfb5;
+            display: inline-block;
+            padding-top: 0.8rem;
+        }
+
+        .gold-btn {
+            background: linear-gradient(135deg, #e6c48b, #c9a76b);
+            border: none;
+            padding: 1rem 2.8rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            color: #3e2a1f;
+            border-radius: 60px;
+            margin-top: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -8px rgba(0,0,0,0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .gold-btn i {
+            font-size: 1.3rem;
+            transition: transform 0.3s;
+        }
+
+        .gold-btn:hover {
+            background: linear-gradient(135deg, #f2d298, #dcb67a);
+            transform: scale(1.02);
+            box-shadow: 0 18px 25px -12px rgba(0,0,0,0.25);
+        }
+
+        .gold-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* ----- INVITATION CARD (hidden initially) ----- */
+        .invitation-card {
+            display: none;
+            background: #fffef7;
+            border-radius: 64px;
+            overflow: hidden;
+            box-shadow: 0 35px 55px -20px rgba(58, 32, 12, 0.4);
+            border: 1px solid #f5e2c6;
+            transition: all 0.2s;
+            transform-origin: center;
+        }
+
+        .invitation-card.card-animate {
+            display: block;
+            animation: cardReveal 0.8s cubic-bezier(0.21, 0.98, 0.35, 1.1) forwards;
+        }
+
+        @keyframes cardReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.85) rotateY(-12deg);
+                filter: blur(2px);
+            }
+            40% {
+                opacity: 0.8;
+                transform: scale(1.02) rotateY(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotateY(0deg);
+                filter: blur(0);
+            }
+        }
+
+        /* inner decorative header */
+        .invitation-header {
+            background: linear-gradient(120deg, #fae3bf, #fceedb);
+            padding: 2rem 2rem 1rem;
+            text-align: center;
+            border-bottom: 2px solid #f5dbb1;
+        }
+
+        .invitation-header h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            letter-spacing: 4px;
+            color: #b87c4a;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        /* ----- STYLISH COUPLE PHOTO (added) ----- */
+        .couple-photo-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1.2rem 0 0.8rem 0;
+            position: relative;
+        }
+
+        .wedding-couple-img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #f7e2bd;
+            box-shadow: 0 20px 28px -12px rgba(90, 45, 20, 0.25), 0 0 0 2px #fdf0df, 0 0 0 6px rgba(219, 164, 85, 0.2);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            background: #fff6ec;
+            cursor: pointer;
+        }
+
+        .wedding-couple-img:hover {
+            transform: scale(1.03);
+            border-color: #e6bf7a;
+            box-shadow: 0 25px 32px -12px rgba(70, 35, 10, 0.35), 0 0 0 4px rgba(230, 191, 122, 0.4);
+        }
+
+        /* optional tiny ring icon overlay effect */
+        .couple-photo-wrapper::after {
+            
+            position: absolute;
+            bottom: 8px;
+            right: 18px;
+            font-size: 24px;
+            background: #fffcf5;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            opacity: 0.9;
+            pointer-events: none;
+            border: 1px solid #f0d5af;
+            transform: rotate(5deg);
+        }
+
+        /* responsive for smaller screens */
+        @media (max-width: 550px) {
+            .wedding-couple-img {
+                width: 110px;
+                height: 110px;
+            }
+            .couple-photo-wrapper::after {
+                width: 30px;
+                height: 30px;
+                font-size: 18px;
+                bottom: 2px;
+                right: 8px;
+            }
+        }
+
+        .ring-symbol {
+            font-size: 2rem;
+            color: #dbb46a;
+            margin: 0.5rem 0;
+        }
+
+        .couple-names {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #5c3b21;
+            line-height: 1.2;
+            margin: 0.5rem 0;
+        }
+
+        .ampersand {
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: #c69454;
+            margin: 0 0.25rem;
+        }
+
+        .invitation-body {
+            padding: 2rem 2rem 1.8rem;
+            text-align: center;
+        }
+
+        .invite-text {
+            font-size: 1.05rem;
+            color: #5d3a23;
+            max-width: 90%;
+            margin: 0 auto 1.5rem;
+            font-weight: 400;
+            line-height: 1.6;
+            border-left: 3px solid #f0cfaa;
+            border-right: 3px solid #f0cfaa;
+            padding: 0.3rem 1rem;
+        }
+
+        .date-venue {
+            background: #fff5ea;
+            border-radius: 56px;
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0 1.2rem;
+        }
+
+        .date-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #936e46;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .date-block i {
+            font-size: 1.8rem;
+            color: #cb9e6b;
+        }
+
+        .date-detail {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 6px;
+            letter-spacing: 1px;
+            
+        }
+
+        .venue {
+            font-size: 1.1rem;
+            margin-top: 12px;
+            font-weight: 500;
+            color: #7b583b;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .venue i {
+            color: #c28b4b;
+        }
+
+        .rsvp-btn {
+            background: transparent;
+            border: 2px solid #ddb582;
+            padding: 0.8rem 2rem;
+            border-radius: 48px;
+            font-weight: 600;
+            color: #8b5a36;
+            font-size: 1rem;
+            margin: 1.8rem 0 1rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: 'Poppins', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rsvp-btn:hover {
+            background: #ddb582;
+            color: white;
+            border-color: #ddb582;
+            transform: scale(1.02);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+        }
+
+        .footer-note {
+            font-size: 0.75rem;
+            color: #b28a60;
+            margin-top: 1rem;
+            border-top: 1px solid #f7e5d3;
+            padding-top: 1rem;
+            display: inline-block;
+        }
+
+        .invitation-footer {
+            background: #fdf2e6;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #b77d48;
+            letter-spacing: 1px;
+        }
+
+        /* responsive */
+        @media (max-width: 600px) {
+            body {
+                padding: 0.8rem;
+            }
+            .couple-names {
+                font-size: 2rem;
+            }
+            .invitation-header {
+                padding: 1.2rem 1rem;
+            }
+            .invitation-body {
+                padding: 1.4rem;
+            }
+            .date-block {
+                font-size: 1.1rem;
+            }
+            .intro-card h2 {
+                font-size: 1.9rem;
+            }
+            .gold-btn {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* micro staggered animations for inner elements when card appears */
+        .card-animate .invitation-header,
+        .card-animate .invitation-body,
+        .card-animate .invitation-footer {
+            animation: gentleFadeUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        .card-animate .invitation-header {
+            animation-delay: 0.1s;
+        }
+        .card-animate .invitation-body {
+            animation-delay: 0.2s;
+        }
+        .card-animate .invitation-footer {
+            animation-delay: 0.35s;
+        }
+
+        @keyframes gentleFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* floating hearts effect */
+        .floating-hearts {
+            position: absolute;
+            pointer-events: none;
+            font-size: 1.5rem;
+            animation: floatHeart 1.2s ease-out forwards;
+            z-index: 10;
+        }
+        
+        @keyframes floatHeart {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0.8);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-80px) scale(1.4);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="invitation-wrapper">
+    <!-- INTRO SECTION : single click reveals main invitation -->
+    <div id="introSection" class="intro-card">
+        <div class="floral-icon">
+            <i class="fas fa-flower"></i> <i class="fas fa-heart"></i> <i class="fas fa-flower"></i>
+        </div>
+        <h2>✦ A Wedding Celebration ✦</h2>
+        <p class="intro-message">Together with joyous hearts, we invite you to witness our sacred union</p>
+        <button id="revealInvitationBtn" class="gold-btn">
+            <i class="fas fa-envelope-open-text"></i> Open Invitation
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div style="margin-top: 20px; font-size: 12px; color: #caa97b;">
+            <i class="fas fa-rings-wedding"></i> one click · magic unfolds
+        </div>
+    </div>
+
+    <!-- MAIN MARRIAGE INVITATION CARD (hidden initially, animated reveal on click) -->
+    <div id="weddingInvitation" class="invitation-card">
+        <div class="invitation-header">
+            <h4>💞 With Love 💞</h4>
+            
+            <!-- =============================================== -->
+            <!-- STYLISH COUPLE PHOTO ADDED HERE                -->
+            <!-- =============================================== -->
+            <!-- PLACEMENT: Inside the invitation-header, right below "With Love" and above ring symbol.
+                 This creates a romantic focal point that elegantly introduces the couple.
+                 The photo uses a circular frame with golden border, soft shadow, and subtle hover scale.
+                 Replace the 'src' attribute with your own couple image URL. -->
+            <div class="couple-photo-wrapper">
+                <img class="wedding-couple-img" 
+                     src="photo.jpg" 
+                     alt="Ashwitha & Sharath - Eternal Love" 
+                     title="Ashwitha & Sharath">
+                <!-- small decorative ring icon appears as overlay via pseudo-element -->
+            </div>
+            <!-- =============================================== -->
+            
+            <div class="ring-symbol">
+                <i class="fas fa-ring"></i> <i class="fas fa-heart" style="margin: 0 8px; color:#e0a36b;"></i> <i class="fas fa-ring"></i>
+            </div>
+            <div class="couple-names">
+                Ashwitha <span class="ampersand">&</span> Sharath
+            </div>
+            <p style="font-size: 0.9rem; letter-spacing: 2px; color:#b87b48;">request the honour of your presence</p>
+        </div>
+
+        <div class="invitation-body">
+            <div class="invite-text">
+                <i class="fas fa-feather-alt"></i> We joyfully invite you to our wedding ceremony, where two souls become one. 
+                Your blessing will make our day complete. <i class="fas fa-feather-alt"></i>
+            </div>
+
+            <div class="date-venue">
+                <div class="date-block">
+                    <i class="fas fa-calendar-alt"></i>  Saturday, 17th May 2025
+                </div>
+                <div class="date-detail">
+                    <i class="far fa-clock"></i>  Ceremony: 7:00 PM
+                </div>
+                <div class="venue">
+                    <i class="fas fa-map-marker-alt"></i>  The Royal Eden Gardens, Jaipur
+                </div>
+            </div>
+
+            <div class="invite-text" style="font-size: 0.9rem; border: none;">
+                "Where love begins and never ends…"<br>
+                <span style="font-size: 0.8rem;">–💖 💖 💖–</span>
+            </div>
+
+            <button id="rsvpMockBtn" class="rsvp-btn">
+                <i class="fas fa-check-circle"></i> Yes, let’s celebrate!
+            </button>
+        </div>
+
+        <div class="invitation-footer">
+            <i class="fas fa-heart" style="color:#dba459;"></i>  Blessings & sweet memories  <i class="fas fa-heart" style="color:#dba459;"></i>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // DOM elements
+        const introCard = document.getElementById('introSection');
+        const inviteBtn = document.getElementById('revealInvitationBtn');
+        const weddingCard = document.getElementById('weddingInvitation');
+        const rsvpButton = document.getElementById('rsvpMockBtn');
+        
+        let isRevealed = false;
+
+        // Function to create floating hearts for extra celebration on click
+        function createFloatingHearts(x, y) {
+            for (let i = 0; i < 12; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = ['❤️', '💖', '💗', '🌸', '✨', '🌹'][Math.floor(Math.random() * 6)];
+                heart.classList.add('floating-hearts');
+                heart.style.left = (x + (Math.random() * 60 - 30)) + 'px';
+                heart.style.top = (y + (Math.random() * 40 - 20)) + 'px';
+                heart.style.position = 'fixed';
+                heart.style.fontSize = (Math.random() * 20 + 16) + 'px';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '9999';
+                document.body.appendChild(heart);
+                setTimeout(() => { heart.remove(); }, 1200);
+            }
+        }
+
+        // Reveal invitation with animation
+        function revealInvitation(event) {
+            if (isRevealed) return;
+            isRevealed = true;
+            
+            let clickX, clickY;
+            if (event && event.clientX) {
+                clickX = event.clientX;
+                clickY = event.clientY;
+            } else {
+                clickX = window.innerWidth / 2;
+                clickY = window.innerHeight / 2;
+            }
+            
+            createFloatingHearts(clickX, clickY);
+            
+            introCard.classList.add('fade-out');
+            
+            const handleTransitionEnd = () => {
+                introCard.style.display = 'none';
+                weddingCard.style.display = 'block';
+                void weddingCard.offsetWidth;
+                weddingCard.classList.add('card-animate');
+                introCard.removeEventListener('transitionend', handleTransitionEnd);
+            };
+            
+            introCard.addEventListener('transitionend', handleTransitionEnd, { once: true });
+            setTimeout(() => {
+                if (introCard.style.display !== 'none') {
+                    introCard.style.display = 'none';
+                    weddingCard.style.display = 'block';
+                    weddingCard.classList.add('card-animate');
+                }
+            }, 550);
+        }
+        
+        inviteBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            revealInvitation(e);
+        });
+        
+        if (rsvpButton) {
+            rsvpButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                const rect = rsvpButton.getBoundingClientRect();
+                for (let i = 0; i < 6; i++) {
+                    const spark = document.createElement('div');
+                    spark.innerHTML = '🎉';
+                    spark.style.position = 'fixed';
+                    spark.style.left = (rect.left + rect.width/2 + (Math.random() * 40 - 20)) + 'px';
+                    spark.style.top = (rect.top + rect.height/2 + (Math.random() * 30 - 15)) + 'px';
+                    spark.style.fontSize = '18px';
+                    spark.style.pointerEvents = 'none';
+                    spark.style.zIndex = '9999';
+                    spark.style.opacity = '0.8';
+                    spark.style.transition = 'all 0.5s ease';
+                    document.body.appendChild(spark);
+                    setTimeout(() => spark.remove(), 600);
+                }
+                alert("✨ Thank you for your warm response! We can't wait to celebrate with you. ✨");
+            });
+        }
+        
+        weddingCard.style.display = 'none';
+        
+        window.addEventListener('load', () => {
+            introCard.style.opacity = '1';
+            introCard.style.transform = 'scale(1)';
+        });
+    })();
+</script>
+</body>
+</html>
